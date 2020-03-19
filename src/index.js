@@ -36,9 +36,18 @@ const MORSE_TABLE = {
     '----.':  '9',
     '-----':  '0',
 };
+const numericMorse = {
+    '**********': ' '
+};
 
+for(key of Object.keys(MORSE_TABLE)) {
+    let numericKey = key.split('').map(key => key === '.' ? '10': '11').join('').padStart(10, '0');
+    numericMorse[numericKey] = MORSE_TABLE[key];
+}
 function decode(expr) {
-    // write your solution here
+   return expr.match(/.{10}/g) //split by 10 symbols
+    .map(numericItem => numericMorse[numericItem]) //get value from numeric morse
+    .join('');
 }
 
 module.exports = {
